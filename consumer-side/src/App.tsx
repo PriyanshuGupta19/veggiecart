@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import LandingPage from "../../auth/LandingPage"; // Import from auth
-import SignUp from "../../auth/SignUp";
-import Login from "../../auth/Login";
+import LandingPage from "../auth/LandingPage"; // Import from auth
+import SignUp from "../auth/SignUp";
+import Login from "../auth/Login";
 
 const App = () => {
     return (
