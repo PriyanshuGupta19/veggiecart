@@ -1,8 +1,8 @@
-import Navbar from "./navbar";
-import FirstBody from "./firstbody";
-import SecondBody from "./secondbody";
-import Products from "./products";
-import Footer from "./footer";
+import Navbar from "./Navbar";
+import FirstBody from "./Hero";
+import SecondBody from "./About";
+import Products from "./Products";
+import Footer from "./Footer";
 const Dashboard = () => {
     return (
       <>
