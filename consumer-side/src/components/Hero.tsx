@@ -10,7 +10,7 @@ const Body = () => {
       buttonText: "View Details"
     },
     {
-      image: "/images/img-2.jpg",
+      image: "/images/trial.jpg",
       heading: "Fresh & Healthy",
       subheading: "Quality produce delivered directly to you",
       buttonText: "Learn More"
@@ -29,7 +29,7 @@ const Body = () => {
   const { image, heading, subheading, buttonText } = slides[currentSlide];
 
   return (
-    <div className="relative h-[600px] w-full overflow-hidden">
+    <div className="relative h-[770px] w-full overflow-hidden" id="hero">
       {/* Background image */}
       <img
         src={image}

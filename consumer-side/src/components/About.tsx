@@ -2,7 +2,7 @@ import '../index.css';
 
 function Body() {
     return (
-        <div className="m-16">
+        <div className="m-16" id="about">
 
             <div className="grid grid-cols-4 px-30 gap-6">
               <div className="h-50 w-50">

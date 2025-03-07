@@ -3,7 +3,7 @@ import { Heart,ShoppingBasket,ListCollapse } from "lucide-react";
 const Products = () => {
     return (
       <>
-        <div className="m-40">
+        <div className="m-40" id="shop">
             <div>
             <h1 className="text-lime-500 text-center text-xl ">Featured Products</h1>
             <h2 className="font-bold text-5xl text-center p-6">Our Products</h2>
