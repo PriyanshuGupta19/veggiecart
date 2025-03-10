@@ -14,7 +14,7 @@ const Products = () => {
                 
             <div className="relative group p-2 w-52">
               {/* Image */}
-               <img src="./public/images/shipping.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
+               <img src="./public/images/tomato.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
                 {/* Product Name */}
               <p className="font-bold text-center p-2">Tomato</p>
            {/* Price (Hidden on Hover) */}
@@ -28,7 +28,7 @@ const Products = () => {
          </div>
          <div className="relative group p-2 w-52">
               {/* Image */}
-               <img src="./public/images/shipping.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
+               <img src="./public/images/tomato.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
                 {/* Product Name */}
               <p className="font-bold text-center p-2">Tomato</p>
            {/* Price (Hidden on Hover) */}
@@ -42,7 +42,7 @@ const Products = () => {
          </div>
          <div className="relative group p-2 w-52">
               {/* Image */}
-               <img src="./public/images/shipping.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
+               <img src="./public/images/tomato.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
                 {/* Product Name */}
               <p className="font-bold text-center p-2">Tomato</p>
            {/* Price (Hidden on Hover) */}
@@ -56,7 +56,7 @@ const Products = () => {
          </div>
          <div className="relative group p-2 w-52">
               {/* Image */}
-               <img src="./public/images/shipping.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
+               <img src="./public/images/tomato.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
                 {/* Product Name */}
               <p className="font-bold text-center p-2">Tomato</p>
            {/* Price (Hidden on Hover) */}
@@ -70,7 +70,7 @@ const Products = () => {
          </div>
          <div className="relative group p-2 w-52">
               {/* Image */}
-               <img src="./public/images/shipping.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
+               <img src="./public/images/tomato.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
                 {/* Product Name */}
               <p className="font-bold text-center p-2">Tomato</p>
            {/* Price (Hidden on Hover) */}
@@ -84,7 +84,7 @@ const Products = () => {
          </div>
          <div className="relative group p-2 w-52">
               {/* Image */}
-               <img src="./public/images/shipping.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
+               <img src="./public/images/tomato.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
                 {/* Product Name */}
               <p className="font-bold text-center p-2">Tomato</p>
            {/* Price (Hidden on Hover) */}
@@ -98,7 +98,7 @@ const Products = () => {
          </div>
          <div className="relative group p-2 w-52">
               {/* Image */}
-               <img src="./public/images/shipping.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
+               <img src="./public/images/tomato.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
                 {/* Product Name */}
               <p className="font-bold text-center p-2">Tomato</p>
            {/* Price (Hidden on Hover) */}
@@ -112,7 +112,7 @@ const Products = () => {
          </div>
          <div className="relative group p-2 w-52">
               {/* Image */}
-               <img src="./public/images/shipping.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
+               <img src="./public/images/tomato.jpg" alt="Image 1"className="w-full hover:scale-110 transition-transform duration-300 ease-in-out"/>
                 {/* Product Name */}
               <p className="font-bold text-center p-2">Tomato</p>
            {/* Price (Hidden on Hover) */}
@@ -128,20 +128,27 @@ const Products = () => {
             </div>
         </div>
           
-          <div className='flex -mt-30'>
-          <div className='relative h-150 w-full'>
-           <img src="./public/images/img-2.jpg" alt="Image 1" className='h-full w-full'></img>
-          
-           <div className='p-16 absolute inset-0 pl-200'>
-             <h1 className="text-lime-700 text-xl py-2">Best Price For You</h1>
-             <p className='font-bold text-5xl py-4'>  Deal of the day </p>
-             <p className='text-gray-500 py-4'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia </p>
-            <p className='text-lime-700 py-2 text-3xl'>Spinach</p>
-           <div className='flex gap-1 py-2'>  <p className='text-gray-500'>Was $10 </p>
-            <p className='text-lime-700'>  now $5 only</p> </div>
-           </div>
-           </div> 
-          </div>
+        <div className="flex -mt-30 justify-between items-center px-16">
+        <div className="relative w-1/2">
+    <img src="./public/images/cabbage.jpg" alt="Image 1" className="h-96 w-full object-cover rounded-lg shadow-md" />
+  </div>
+  {/* Text Content on the Left */}
+  <div className="w-1/2 p-8">
+    <h1 className="text-lime-700 text-xl py-2">Best Price For You</h1>
+    <p className="font-bold text-5xl py-4">Deal of the Day</p>
+    <p className="text-gray-500 py-4">
+      Far far away, behind the word mountains, far from the countries Vokalia and Consonantia
+    </p>
+    <p className="text-lime-700 py-2 text-3xl">Cabbage</p>
+    <div className="flex gap-1 py-2">
+      <p className="text-gray-500">Was $10</p>
+      <p className="text-lime-700">Now $5 only</p>
+    </div>
+  </div>
+
+  
+</div>
+
         
 </>
     )

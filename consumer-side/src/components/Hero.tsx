@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 const Body = () => {
   const slides = [
     {
-      image: "/images/img-1.jpg", // Ensure this path is correct!
+      image: "/images/img1.jpg", // Ensure this path is correct!
       heading: "We Serve Fresh Organic Vegetables and Fruits",
       subheading: "We deliver fresh vegetables and fruits to your doorstep",
       buttonText: "View Details"
     },
     {
-      image: "/images/trial.jpg",
+      image: "/images/img3.jpg",
       heading: "Fresh & Healthy",
       subheading: "Quality produce delivered directly to you",
       buttonText: "Learn More"

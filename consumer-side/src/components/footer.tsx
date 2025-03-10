@@ -2,7 +2,7 @@
 import {Phone,Mail,MapPinHouse} from "lucide-react";
 const Footer = () => {
   return (
-    <footer className="bg-white text-black py-10 px-40">
+    <footer className="bg-white text-black py-20 px-40">
       <div className="container mx-auto px-6 grid grid-cols-4 gap-8 text-left">
         {/* Brand & Description */}
         <div>
