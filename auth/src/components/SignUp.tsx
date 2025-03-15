@@ -4,7 +4,7 @@ const SignUp: React.FC = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,29 +20,34 @@ const SignUp: React.FC = () => {
   });
 
   // Validation helpers
-  const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const isValidPhone = (phone: string) => /^\d{3}-\d{3}-\d{4}$/.test(phone);
-  const isStrongPassword = (password: string) => 
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isValidPhone = (phone: string) => /^\d{10}$/.test(phone); // Updated to 10-digit phone validation
+  const isStrongPassword = (password: string) =>
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     // Clear error when user modifies field
-    setErrors(prev => ({ ...prev, [name]: "" }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      products: checked ? [...prev.products, value] : prev.products.filter(p => p !== value)
+      products: checked
+        ? [...prev.products, value]
+        : prev.products.filter((p) => p !== value),
     }));
   };
 
   const validateStep1 = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -52,7 +57,7 @@ const SignUp: React.FC = () => {
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone is required";
     } else if (!isValidPhone(formData.phone)) {
-      newErrors.phone = "Invalid format (XXX-XXX-XXXX)";
+      newErrors.phone = "Invalid format (10 digits required)";
     }
     if (!formData.state.trim()) newErrors.state = "State is required";
     if (!formData.city.trim()) newErrors.city = "City is required";
@@ -60,7 +65,8 @@ const SignUp: React.FC = () => {
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (!isStrongPassword(formData.password)) {
-      newErrors.password = "Password must include uppercase, lowercase, number, and be at least 8 characters";
+      newErrors.password =
+        "Password must include uppercase, lowercase, number, and be at least 8 characters";
     }
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
@@ -77,10 +83,13 @@ const SignUp: React.FC = () => {
     // Step 2 validation
     const step2Errors: Record<string, string> = {};
     if (formData.category === "Farmer") {
-      if (!formData.farmerCategory) step2Errors.farmerCategory = "Farmer category required";
-      if (formData.products.length === 0) step2Errors.products = "Select at least one product";
+      if (!formData.farmerCategory)
+        step2Errors.farmerCategory = "Farmer category required";
+      if (formData.products.length === 0)
+        step2Errors.products = "Select at least one product";
     } else {
-      if (!formData.consumerCategory) step2Errors.consumerCategory = "Consumer category required";
+      if (!formData.consumerCategory)
+        step2Errors.consumerCategory = "Consumer category required";
     }
 
     if (Object.keys(step2Errors).length > 0) {
@@ -89,13 +98,46 @@ const SignUp: React.FC = () => {
     }
 
     setLoading(true);
-    // Simulate API call
+
+    interface CustomError extends Error {
+      status?: number;
+    }
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      alert("Form submitted successfully!");
-      // Reset form or redirect here
+      // Prepare payload for backend
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        phone: formData.phone,
+        state: formData.state,
+        city: formData.city,
+        category: formData.category,
+        farmerCategory: formData.category === "Farmer" ? formData.farmerCategory : undefined,
+        products: formData.category === "Farmer" ? formData.products : undefined,
+        consumerCategory: formData.category === "Consumer" ? formData.consumerCategory : undefined,
+      };
+
+      // Send POST request to backend
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Signup failed");
+      }
+
+      alert("Signup successful! You can now log in.");
+      // Optionally redirect to login page
     } catch (error) {
-      alert("Submission failed. Please try again.");
+      const err = error as CustomError; // Type assertion
+      alert(err.message || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -114,12 +156,16 @@ const SignUp: React.FC = () => {
                   <input
                     type={field === "email" ? "email" : "text"}
                     name={field}
-                    placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)}${field === "phone" ? " (XXX-XXX-XXXX)" : ""}`}
+                    placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)}${
+                      field === "phone" ? " (10 digits)" : ""
+                    }`}
                     className="w-full p-2 border rounded mt-2"
                     value={formData[field as keyof typeof formData]}
                     onChange={handleChange}
                   />
-                  {errors[field] && <p className="text-red-500 text-sm">{errors[field]}</p>}
+                  {errors[field] && (
+                    <p className="text-red-500 text-sm">{errors[field]}</p>
+                  )}
                 </div>
               ))}
 
@@ -134,7 +180,9 @@ const SignUp: React.FC = () => {
                   <option value="Farmer">Farmer</option>
                   <option value="Consumer">Consumer</option>
                 </select>
-                {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
+                {errors.category && (
+                  <p className="text-red-500 text-sm">{errors.category}</p>
+                )}
               </div>
 
               <div className="mt-2">
@@ -146,7 +194,9 @@ const SignUp: React.FC = () => {
                   value={formData.password}
                   onChange={handleChange}
                 />
-                {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                {errors.password && (
+                  <p className="text-red-500 text-sm">{errors.password}</p>
+                )}
               </div>
 
               <div className="mt-2">
@@ -158,7 +208,9 @@ const SignUp: React.FC = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                 />
-                {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
+                )}
               </div>
 
               <button
@@ -189,13 +241,23 @@ const SignUp: React.FC = () => {
                       <option value="Medium">Medium (4-10 hectare)</option>
                       <option value="Large">Large (10+ hectare)</option>
                     </select>
-                    {errors.farmerCategory && <p className="text-red-500 text-sm">{errors.farmerCategory}</p>}
+                    {errors.farmerCategory && (
+                      <p className="text-red-500 text-sm">{errors.farmerCategory}</p>
+                    )}
                   </div>
 
                   <div className="mt-4">
                     <label className="block font-bold mb-2">Products:</label>
                     <div className="grid grid-cols-2 gap-2">
-                      {["Vegetables", "Fruits", "Grains", "Herbs", "Nuts", "Seeds", "Dairy"].map((item) => (
+                      {[
+                        "Vegetables",
+                        "Fruits",
+                        "Grains",
+                        "Herbs",
+                        "Nuts",
+                        "Seeds",
+                        "Dairy",
+                      ].map((item) => (
                         <label key={item} className="flex items-center space-x-2">
                           <input
                             type="checkbox"
@@ -208,7 +270,9 @@ const SignUp: React.FC = () => {
                         </label>
                       ))}
                     </div>
-                    {errors.products && <p className="text-red-500 text-sm">{errors.products}</p>}
+                    {errors.products && (
+                      <p className="text-red-500 text-sm">{errors.products}</p>
+                    )}
                   </div>
                 </>
               ) : (
@@ -224,7 +288,9 @@ const SignUp: React.FC = () => {
                     <option value="Retailer">Retailer</option>
                     <option value="Wholesaler">Wholesaler</option>
                   </select>
-                  {errors.consumerCategory && <p className="text-red-500 text-sm">{errors.consumerCategory}</p>}
+                  {errors.consumerCategory && (
+                    <p className="text-red-500 text-sm">{errors.consumerCategory}</p>
+                  )}
                 </div>
               )}
 

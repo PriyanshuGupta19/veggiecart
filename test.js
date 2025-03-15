@@ -44,3 +44,4 @@ fetch("http://localhost:5000/api/auth/login", {
   .catch((error) => {
     console.error("Error:", error);
   });
+
