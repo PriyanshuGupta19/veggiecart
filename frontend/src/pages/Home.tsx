@@ -51,19 +51,15 @@ function Home() {
   }, [])
 
   return (
-    <div>
-      <h1>{loggedInUser}</h1>
-      <button onClick={handleLogout}>Logout</button>
-      <div>
-        <ul>
-          {products && products.map((item: Product, index: number) => (
-            <li key={index}>
-              <span>{item.name} : {item.price}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <div className="border-2 border-gray-300 p-4 rounded-lg shadow-md flex flex-col items-center bg-white">
+  <h1 className="text-xl font-semibold text-gray-700">{loggedInUser}</h1>
+  <button 
+    className="mt-2 px-4 py-2 bg-red-500 text-white font-medium rounded-md shadow-md hover:bg-red-600 transition duration-300"
+    onClick={handleLogout}
+  >
+    Logout
+  </button>
+</div>
   )
 }
 

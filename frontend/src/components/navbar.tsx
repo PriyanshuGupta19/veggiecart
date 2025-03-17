@@ -1,15 +1,36 @@
 import '../index.css';
 import { Phone, Mail, Truck, ShoppingBasket } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const scrollToSection = (sectionId) => {
-  const section = document.getElementById(sectionId);
-  if (section) {
-    section.scrollIntoView({ behavior: "smooth" });
-  }
-};
 
 const Navbar = () => {
+  const [loggedInUser, setLoggedInUser] = useState<string>('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem('loggedInUser');
+    setLoggedInUser(user || '');
+  }, []);
+
+  const handleLogout = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('loggedInUser');
+    setLoggedInUser('');
+
+    setTimeout(() => {
+      navigate('/login'); // Redirects to login page
+    }, 500);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header className="w-full fixed top-0 left-0 bg-white shadow-md z-50" id="hero">
       <div className="flex">
@@ -36,17 +57,16 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Main Navigation Bar
-          fixed top-10 left-30 bg-white shadow-md z-50 w-350  */}
+          {/* Main Navigation Bar */}
           <nav className="flex justify-between items-center px-8 py-4">
             <div className="font-bold text-2xl text-green-500">
               <Link to="/">VEGEFOODS</Link>
             </div>
             <div className="flex space-x-10 text-gray-800 font-medium">
               <a href="#" onClick={() => scrollToSection("hero")} className="hover:text-green-500">Home</a>
-              <a href="#" onClick={() => scrollToSection("shop")} className="hover:text-green-500">Shop</a>
               <a href="#" onClick={() => scrollToSection("about")} className="hover:text-green-500">About</a>
-              <Link to="/blog" className="hover:text-green-500">Blog</Link>
+             <Link to='/shop' className="hover:text-green-500">Shop</Link>
+              <Link to="/addProduct" className="hover:text-green-500">AddProducts</Link>
               <Link to="/contact" className="hover:text-green-500">Contact</Link>
               <Link to="/cart">
                 <div className="flex font-bold hover:text-green-500"> 
@@ -54,6 +74,14 @@ const Navbar = () => {
                   <ShoppingBasket size={25} />
                 </div>
               </Link>
+              {loggedInUser && (
+                <button 
+                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-purple-800 transition"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </nav>
         </div>

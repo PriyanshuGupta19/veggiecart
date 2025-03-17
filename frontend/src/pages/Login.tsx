@@ -46,7 +46,7 @@ function Login() {
         localStorage.setItem('token', jwtToken);
         localStorage.setItem('loggedInUser', name);
         setTimeout(() => {
-          navigate('/home')
+          navigate('/dashboard')
         }, 1000)
       } else if (error) {
         const details = error?.details[0].message;
@@ -61,37 +61,60 @@ function Login() {
   }
 
   return (
-    <div className="container">
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="email">Email</label>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      {/* Login Heading */}
+      <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login</h1>
+  
+      {/* Login Form */}
+      <form onSubmit={handleLogin} className="flex flex-col space-y-4">
+        {/* Email Field */}
+        <div className="flex flex-col">
+          <label htmlFor="email" className="text-gray-700 font-medium">Email</label>
           <input
-          onChange={handleChange}
-          type="email"
-          name="email"
-          placeholder="Enter your email..."
-          value={loginInfo.email}
+            onChange={handleChange}
+            type="email"
+            name="email"
+            placeholder="Enter your email..."
+            value={loginInfo.email}
+            className="mt-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
+  
+        {/* Password Field */}
+        <div className="flex flex-col">
+          <label htmlFor="password" className="text-gray-700 font-medium">Password</label>
           <input
-          onChange={handleChange}
-          type="password"
-          name="password"
-          placeholder="Enter your password..."
-          value={loginInfo.password}
+            onChange={handleChange}
+            type="password"
+            name="password"
+            placeholder="Enter your password..."
+            value={loginInfo.password}
+            className="mt-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <button type="submit">Login</button>
-        <span>Don't have an account ?
-          <Link to="/signup">Sign-Up</Link>
+  
+        {/* Login Button */}
+        <button 
+          type="submit" 
+          className="bg-blue-500 text-white font-semibold py-3 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300"
+        >
+          Login
+        </button>
+  
+        {/* Signup Link */}
+        <span className="text-gray-600 text-center">
+          Don't have an account? 
+          <Link to="/signup" className="text-blue-500 font-medium hover:underline ml-1">Sign-Up</Link>
         </span>
       </form>
+  
+      {/* Toast Notifications */}
       <ToastContainer />
     </div>
+  </div>
+  
   )
 }
 
-export default Login
+export default Login;

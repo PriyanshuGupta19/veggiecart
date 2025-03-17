@@ -40,12 +40,12 @@ const Products = () => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
       if (existingItem) {
-        toast.info(`${product.name} quantity updated!`, { position: "top-right" }); 
+        toast.info(`${product.name} quantity updated!`, { position: "top-right",autoClose: 500, }); 
         return prevCart.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      toast.info(`${product.name} quantity added Successfully!`, { position: "top-right" }); 
+      toast.info(`${product.name} quantity added Successfully!`, { position: "top-right",autoClose: 500, }); 
       return [...prevCart, { ...product, quantity: 1 }];
     });
   };

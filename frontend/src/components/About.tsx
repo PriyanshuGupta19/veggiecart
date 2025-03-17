@@ -1,5 +1,5 @@
 import '../index.css';
-
+import Shop from './shop';
 function Body() {
     return (
         <div className="m-16" id="about">
@@ -41,7 +41,7 @@ function Body() {
                 <div className='text-center p-4'>
                     <h1 className="text-2xl font-bold text-lime-500 p-2">Vegetables</h1>
                     <p className='text-gray-600 p-4'>Protect the health of every home</p>
-                    <button className="bg-lime-400 text-white px-4 py-2 rounded-2xl hover:bg-lime-600 transition-colors duration-300">Shop now</button>
+                    <button className="bg-lime-400 text-white px-4 py-2 rounded-2xl hover:bg-lime-600 transition-colors duration-300" onClick={() => window.location.href = '/shop'}>Shop now</button>
                 </div>
 
                 <div className="relative">
