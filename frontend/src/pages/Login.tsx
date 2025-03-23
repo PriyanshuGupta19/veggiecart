@@ -26,8 +26,8 @@ function Login() {
   }
   const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    const { email, password} = loginInfo;
-    if ( !email || !password) {
+    const { email, password } = loginInfo;
+    if (!email || !password) {
       return handleError('email and password are required');
     }
     try {
@@ -46,8 +46,8 @@ function Login() {
         localStorage.setItem('token', jwtToken);
         localStorage.setItem('loggedInUser', name);
         setTimeout(() => {
-          navigate('/dashboard')
-        }, 1000)
+          navigate('/dashboard'); // Redirect to /dashboard instead of /home
+        }, 1000);
       } else if (error) {
         const details = error?.details[0].message;
         handleError(details);
@@ -58,7 +58,7 @@ function Login() {
     } catch (err) {
       handleError(String(err));
     }
-  }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">

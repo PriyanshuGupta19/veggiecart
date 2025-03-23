@@ -17,7 +17,7 @@ function RefreshHandler({ setIsAuthenticated }: RefreshHandlerProps) {
                 location.pathname === '/login' ||
                 location.pathname === '/signup'
             ) {
-                navigate('/home', { replace: false });
+                navigate('/dashboard', { replace: false });
             }
         }
     }, [location, navigate, setIsAuthenticated])
